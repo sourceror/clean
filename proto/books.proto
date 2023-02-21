@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package books;
+
+service Books {
+  rpc NewBook(NewBookRequest) returns (EmptyResponse);
+}
+
+message NewBookRequest {
+  string Title = 1;
+  string Description = 2;
+  string AuthorID = 3;
+}
+
+message EmptyResponse {}
