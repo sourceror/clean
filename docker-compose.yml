@@ -26,27 +26,3 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-  migrations-up:
-    container_name: migrations-up
-    image: migrate/migrate
-    depends_on:
-      - postgres
-    networks:
-      - clean
-    volumes:
-      - ./deployment/migrations:/migrations
-    entrypoint: ['migrate', '-path=/migrations/', '-database', 'postgres://hypatia:hypatia@database:5432/library?sslmode=disable', 'up']
-    restart: "on-failure" # try again if database takes longer to boot
-
-  migrations-down:
-    container_name: migration-down
-    image: migrate/migrate
-    depends_on:
-      - postgres
-    networks:
-      - clean
-    volumes:
-      - ./deployment/migrations:/migrations
-    entrypoint: [ 'migrate', '-path=/migrations/', '-database', 'postgres://mint:mint@postgres:5432/market_svc?sslmode=disable', 'down', '--all' ]
-    restart: "on-failure" # try again if database takes longer to boot
